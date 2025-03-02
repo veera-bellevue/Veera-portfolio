@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veera Indugu - Data Science Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --text-color: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        section {
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .project-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .project-card p {
+            margin: 1rem 0;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #e0e0e0;
+            color: #333;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            width: 30px;
+        }
+
+        .contact-item a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1001;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 80%;
+            max-width: 800px;
+            border-radius: var(--border-radius);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="profile-container container">
+            <img src="/api/placeholder/150/150" alt="Veera Indugu" class="profile-image">
+            <h1>Veera Indugu</h1>
+            <p>Data Scientist & Analytics Professional</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <p>
+                I am a dedicated data scientist and researcher with expertise in exploring socioeconomic factors that impact workforce participation and gender equity. My work involves analyzing complex datasets to derive actionable insights that can inform policy decisions and drive positive change.
+            </p>
+            <p>
+                With a strong foundation in statistics, machine learning, and data visualization, I strive to uncover meaningful patterns and communicate findings effectively to diverse stakeholders. My current research focuses on examining the relationship between childcare costs and female labor force participation in the United States.
+            </p>
+
+            <h3>Skills</h3>
+            <div class="skills-list">
+                <span class="tag">Python</span>
+                <span class="tag">Data Analysis</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Statistical Modeling</span>
+                <span class="tag">Data Visualization</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">NumPy</span>
+                <span class="tag">Scikit-learn</span>
+                <span class="tag">XGBoost</span>
+                <span class="tag">Matplotlib</span>
+                <span class="tag">Seaborn</span>
+                <span class="tag">Jupyter Notebook</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Feature Engineering</span>
+                <span class="tag">Regression Analysis</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <h3>Childcare Costs & Female Labor Force Participation</h3>
+                    <div class="skills-list">
+                        <span class="tag">Python</span>
+                        <span class="tag">Data Analysis</span>
+                        <span class="tag">Visualization</span>
+                        <span class="tag">Policy Research</span>
+                    </div>
+                    <p>Analysis of how childcare costs impact women's workforce participation across U.S. states, providing actionable policy insights.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project1')">Details</a>
+                        <a href="https://github.com/veera-bellevue/childcare-costs-labor-participation" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <h3>Credit Card Fraud Detection</h3>
+                    <div class="skills-list">
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">XGBoost</span>
+                        <span class="tag">Random Forest</span>
+                        <span class="tag">SHAP Analysis</span>
+                    </div>
+                    <p>Advanced fraud detection system using ensemble methods and explainable AI techniques for transparent decision-making.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project2')">Details</a>
+                        <a href="https://github.com/veera-bellevue/credit-card-fraud-detection" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <h3>Customer Segmentation Analysis</h3>
+                    <div class="skills-list">
+                        <span class="tag">Clustering</span>
+                        <span class="tag">K-Means</span>
+                        <span class="tag">Market Analysis</span>
+                    </div>
+                    <p>Segmentation model to identify customer groups for targeted marketing strategies and personalized services.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project3')">Details</a>
+                        <a href="https://github.com/veera-bellevue/customer-segmentation" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <h3>Housing Price Prediction Model</h3>
+                    <div class="skills-list">
+                        <span class="tag">Regression</span>
+                        <span class="tag">Feature Engineering</span>
+                        <span class="tag">Real Estate</span>
+                    </div>
+                    <p>Advanced regression model to predict housing prices based on property features and neighborhood characteristics.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project4')">Details</a>
+                        <a href="https://github.com/veera-bellevue/housing-price-prediction" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <h3>Sentiment Analysis for Product Reviews</h3>
+                    <div class="skills-list">
+                        <span class="tag">NLP</span>
+                        <span class="tag">Text Mining</span>
+                        <span class="tag">NLTK</span>
+                    </div>
+                    <p>NLP pipeline for analyzing customer sentiment in product reviews to identify improvement areas and competitive advantages.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project5')">Details</a>
+                        <a href="https://github.com/veera-bellevue/sentiment-analysis" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card">
+                    <h3>Healthcare Predictive Analytics</h3>
+                    <div class="skills-list">
+                        <span class="tag">Healthcare</span>
+                        <span class="tag">Classification</span>
+                        <span class="tag">Ensemble Methods</span>
+                    </div>
+                    <p>Predictive model for patient readmission risk to help hospitals improve care management and reduce costs.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project6')">Details</a>
+                        <a href="https://github.com/veera-bellevue/healthcare-predictive-analytics" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 7 -->
+                <div class="project-card">
+                    <h3>Time Series Forecasting for Retail</h3>
+                    <div class="skills-list">
+                        <span class="tag">Time Series</span>
+                        <span class="tag">ARIMA</span>
+                        <span class="tag">Prophet</span>
+                    </div>
+                    <p>Sales forecasting models for retail businesses to optimize inventory management and staffing decisions.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project7')">Details</a>
+                        <a href="https://github.com/veera-bellevue/retail-forecasting" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 8 -->
+                <div class="project-card">
+                    <h3>Education Outcome Predictors</h3>
+                    <div class="skills-list">
+                        <span class="tag">Education</span>
+                        <span class="tag">Statistical Analysis</span>
+                        <span class="tag">Policy Research</span>
+                    </div>
+                    <p>Analysis of factors affecting student outcomes to help educators develop targeted intervention strategies.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project8')">Details</a>
+                        <a href="https://github.com/veera-bellevue/education-outcomes" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 9 -->
+                <div class="project-card">
+                    <h3>Environmental Data Dashboard</h3>
+                    <div class="skills-list">
+                        <span class="tag">Dashboard</span>
+                        <span class="tag">GIS</span>
+                        <span class="tag">Plotly</span>
+                    </div>
+                    <p>Interactive dashboard visualizing environmental metrics to support conservation efforts and policy decisions.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project9')">Details</a>
+                        <a href="https://github.com/veera-bellevue/environmental-dashboard" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 10 -->
+                <div class="project-card">
+                    <h3>Supply Chain Optimization</h3>
+                    <div class="skills-list">
+                        <span class="tag">Optimization</span>
+                        <span class="tag">Linear Programming</span>
+                        <span class="tag">Logistics</span>
+                    </div>
+                    <p>Optimization models to improve supply chain efficiency and reduce operational costs for manufacturing businesses.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn" onclick="openModal('project10')">Details</a>
+                        <a href="https://github.com/veera-bellevue/supply-chain-optimization" class="btn" target="_blank">Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-user"></i>
+                    <span>Veera Venkata Raghunath Indugu</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:veerajet1@gmail.com">contact@veeraindugu.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/veera-venkata-raghun-indugu/" target="_blank">LinkedIn Profile</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/veera-bellevue" target="_blank">GitHub Profile</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Veera Indugu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project Details Modals -->
+    <div id="project1" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('project1')">&times;</span>
+            <h2>Impact of Childcare Costs on Female Labor Force Participation</h2>
+
+            <h3>Overview</h3>
+            <p>This project explores the relationship between childcare costs and female labor force participation in the United States. It aims to provide actionable insights for policymakers to address barriers to women's employment, focusing on geographic and cost disparities in childcare affordability.</p>
+
+            <h3>Key Questions Addressed</h3>
+            <ul>
+                <li>How do childcare costs vary by state?</li>
+                <li>What is the relationship between childcare costs and female labor force participation?</li>
+                <li>Which states require immediate policy attention?</li>
+            </ul>
+
+            <h3>Features</h3>
+            <ul>
+                <li><strong>Data Analysis:</strong> State-level childcare costs (infant, toddler, preschool, school-age) and female labor force participation rates (FLFPR) for women aged 20–64.</li>
+                <li><strong>Comparative Insights:</strong> Analysis of geographic disparities in childcare costs and their implications on labor force participation.</li>
+                <li><strong>Policy Recommendations:</strong> Actionable solutions to improve access to affordable childcare and enhance workforce diversity.</li>
+            </ul>
+
+            <h3>Key Insights</h3>
+            <ul>
+                <li><strong>Cost Variation:</strong> Childcare costs vary significantly by state and region, with urban areas generally facing higher expenses.</li>
+                <li><strong>Impact on Participation:</strong> Infant and toddler care costs are most strongly correlated with lower female labor force participation.</li>
+            </ul>
+
+            <h3>State-Specific Findings</h3>
+            <ul>
+                <li><strong>California:</strong> High costs lead to moderate FLFPR; infant care subsidies are critical.</li>
+                <li><strong>West Virginia:</strong> Low costs but low FLFPR, indicating non-cost barriers.</li>
+                <li><strong>Idaho:</strong> Higher FLFPR despite moderate costs, highlighting other enabling factors.</li>
+            </ul>
+
+            <h3>Recommendations for Policymakers</h3>
+            <ul>
+                <li>Expand subsidies for infant and toddler care.</li>
+                <li>Develop affordable childcare programs in high-cost states.</li>
+                <li>Encourage public-private partnerships to improve childcare infrastructure.</li>
+            </ul>
+
+            <h3>Technologies Used</h3>
+            <div class="skills-list">
+                <span class="tag">Python 3.x</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">NumPy</span>
+                <span class="tag">Matplotlib</span>
+                <span class="tag">Seaborn</span>
+                <span class="tag">Jupyter Notebook</span>
+            </div>
+
+            <div class="project-links" style="margin-top: 2rem;">
+                <a href="https://github.com/veera-bellevue/childcare-costs-labor-participation" class="btn" target="_blank">View Repository</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="project2" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('project2')">&times;</span>
+            <h2>Credit Card Fraud Detection</h2>
+
+            <h3>Overview</h3>
+            <p>This project develops an advanced machine learning system to detect fraudulent credit card transactions. It utilizes ensemble methods and explainable AI techniques to create a model that is both accurate and transparent in its decision-making process.</p>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li>Comprehensive data preprocessing pipeline for transaction data</li>
+                <li>Feature engineering including transaction velocity and merchant category anomalies</li>
+                <li>Implementation of multiple models: XGBoost, Random Forest, and Isolation Forest</li>
+                <li>SHAP (SHapley Additive exPlanations) analysis for model interpretability</li>
+                <li>Hyperparameter tuning using Bayesian Optimization</li>
+                <li>Class imbalance handling with SMOTE (Synthetic Minority Over-sampling Technique)</li>
+            </ul>
+
+            <h3>Model Performance</h3>
+            <p>The XGBoost model achieved the highest performance with:</p>
+            <ul>
+                <li>AUC-ROC Score: 0.987</li>
+                <li>Precision: 0.94</li>
+                <li>Recall: 0.91</li>
+                <li>F1-Score: 0.92</li>
+            </ul>
+
+            <h3>Key Insights</h3>
+            <ul>
+                <li>Transaction velocity (number of transactions in a short time period) is a strong predictor of fraud</li>
+                <li>The ratio between velocity and transaction amount provides valuable signal</li>
+                <li>Certain merchant categories show higher fraud prevalence</li>
+            </ul>
+
+            <h3>Technologies Used</h3>
+            <div class="skills-list">
+                <span class="tag">Python</span>
+                <span class="tag">Scikit-learn</span>
+                <span class="tag">XGBoost</span>
+                <span class="tag">SHAP</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Numpy</span>
+                <span class="tag">Matplotlib</span>
+                <span class="tag">scikit-optimize</span>
+                <span class="tag">imbalanced-learn</span>
+            </div>
+
+            <div class="project-links" style="margin-top: 2rem;">
+                <a href="https://github.com/veera-bellevue/credit-card-fraud-detection" class="btn" target="_blank">View Repository</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add modals for projects 3-10 following the same pattern -->
+
+    <script>
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
